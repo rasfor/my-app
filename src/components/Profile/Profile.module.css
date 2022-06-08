@@ -1,8 +1,3 @@
-.profile {
-  background-color: burlywood;
-  grid-area: content;
-}
-
-.profile img {
+.ava {
   width: 200px;
 }

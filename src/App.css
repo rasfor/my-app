@@ -16,4 +16,5 @@
 
 .App-content {
   background-color: blueviolet;
+  grid-area: content;
 }
