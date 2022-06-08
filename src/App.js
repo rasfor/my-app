@@ -15,7 +15,7 @@ function App() {
         <div className='App-content' >
           <Routes >
             <Route path='/profile' element={<Profile />} />
-            <Route path='/dialogs' element={<Dialog />} />
+            <Route path='/dialogs/*' element={<Dialog />} />
           </Routes>
         </div>
       </div>
