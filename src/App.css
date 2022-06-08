@@ -1,20 +1,16 @@
 .App {
-  justify-content: center;
+  width: 1200px;
+  margin: 0 auto;
   display: grid;
-
-}
-
-.content {
-  width: 800px;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr 3fr;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 60px 1fr;
   grid-template-areas:
     "header header"
     "nav content";
+
 }
 
 .App-content {
-  background-color: blueviolet;
+  background-color: rgb(150, 137, 78);
   grid-area: content;
 }
