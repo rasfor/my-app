@@ -1,23 +1,25 @@
 import module from './Navbar.module.css'
 import { NavLink } from 'react-router-dom';
 
+const setClass = ({ isActive }) => isActive ? module.active : module.item;
+
 const Navbar = () => {
   return (
     <nav className={module.nav}>
       <div className={module.item}>
-        <NavLink className={navData => navData.isActive ? module.active : module.item} to='/profile'>Profile</NavLink>
+        <NavLink className={setClass} to='/profile'>Profile</NavLink>
       </div>
       <div className={module.item}>
-        <NavLink className={navData => navData.isActive ? module.active : module.item} to='/news' >News</NavLink>
+        <NavLink className={setClass} to='/news' >News</NavLink>
       </div>
       <div className={module.item} >
-        <NavLink className={navData => navData.isActive ? module.active : module.item} to="/dialogs" >Messages</NavLink>
+        <NavLink className={setClass} to="/dialogs" >Messages</NavLink>
       </div>
-      <div className={module.item} >
-        <a  >Settings</a>
+      <div className={module.item}>
+        <NavLink className={setClass} to='/settings' >Settings</NavLink>
       </div>
-      <div className={module.item} >
-        <a >Music</a>
+      <div className={module.item}>
+        <NavLink className={setClass} to='/music'>Music</NavLink>
       </div>
     </nav>
   );
