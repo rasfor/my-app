@@ -3,9 +3,12 @@ import module from './Post.module.css'
 const Post = (props) => {
 
   return (
-    <div className={module.item}>
-      <img src={props.ava} />
-      {props.message}
+    <div>
+      <div className={module.item}>
+        <img src={props.ava} />
+        {props.message}
+      </div>
+      <span>likes {props.likeCount}</span>
     </div>
   );
 }
