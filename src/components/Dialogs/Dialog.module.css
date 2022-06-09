@@ -6,14 +6,5 @@
 
 .contacts {}
 
-.contact {
-  color: rgb(231, 198, 121);
-}
-
-.active {
-  color: rgb(247, 236, 222);
-}
 
 .messages {}
-
-.message {}
