@@ -1,0 +1,8 @@
+.currentUser {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.currentUser img {
+  width: 80%;
+}
