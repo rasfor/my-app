@@ -1,10 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import module from './Message.module.css'
+import module from './Message.module.css';
+
 
 const Message = (props) => {
+
   return (
     <div className={module.message}>
       {props.messageText}
+      
     </div>
   );
 }
