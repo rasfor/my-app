@@ -1,8 +1,8 @@
 import reportWebVitals from './reportWebVitals';
-import state,{ addPost } from './redux/state';
+import state,{ addPost, updateNewPostText} from './redux/state';
 import {renderPage} from './render';
 
-renderPage(state, addPost);
+renderPage(state, addPost, updateNewPostText);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

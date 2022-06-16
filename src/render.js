@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
- export let renderPage = (state,addPost ) => {
-  const root = ReactDOM.createRoot(document.getElementById('root'));
+ export let renderPage = (state,addPost,updateNewPostText) => {
   root.render(
     <React.StrictMode>
-      <App appState={state} newPostFn={addPost} />
+      <App appState={state} newPostFn={addPost} updateNewPostText={updateNewPostText} />
     </React.StrictMode>
   );
 }

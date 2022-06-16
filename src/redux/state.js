@@ -5,7 +5,8 @@ let state = {
     posts: [{ id:0, likeCount: 10, text: 'Naruto is the best!'},
     { id:1, likeCount: 2, text: 'I love Sasuke!' },
     { id:2, likeCount: 0, text: 'Sakura - це кринж'},
-    { id:3, likeCount: 15, text: 'I like team №7' }]
+    { id:3, likeCount: 15, text: 'I like team №7' }],
+    newPostText:''
   },
   dialogs: {
     messages: [
@@ -26,11 +27,16 @@ let state = {
 
 }
 
-export let addPost=(postTest) => {
+export let updateNewPostText = (text) => {
+  state.profile.newPostText=text;
+  renderPage(state, addPost, updateNewPostText);
+}
+
+export let addPost=() => {
   let newId = state.profile.posts.length;
-  let newPost =  {id:newId, likeCount:0, text:postTest} ;
+  let newPost =  {id:newId, likeCount:0, text:state.profile.newPostText} ;
   state.profile.posts.push(newPost);
-  renderPage(state, addPost);
+  renderPage(state, addPost, updateNewPostText);
 }
 
 export default state;
