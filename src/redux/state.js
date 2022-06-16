@@ -1,9 +1,11 @@
+import { renderPage } from "../render";
+
 let state = {
   profile: {
-    comments: [{ likeCount: 10, message: 'Naruto is the best!', ava: 'https://i.pinimg.com/originals/7b/ce/25/7bce255e224f6cc9b5d52e60ee587abb.jpg' },
-    { likeCount: 2, message: 'I love Sasuke!', ava: 'https://i.pinimg.com/originals/60/36/4c/60364cef062ebd92733ac57be140e89d.jpg' },
-    { likeCount: 0, message: 'Sakura - це кринж', ava: 'https://i.pinimg.com/originals/ca/9c/0b/ca9c0be06fe64562d9a51d53a18a3cb6.jpg' },
-    { likeCount: 15, message: 'I like team №7', ava: 'https://phonoteka.org/uploads/posts/2021-05/1621946641_51-phonoteka_org-p-kakasi-khatake-art-krasivo-56.jpg' }]
+    posts: [{ id:0, likeCount: 10, text: 'Naruto is the best!'},
+    { id:1, likeCount: 2, text: 'I love Sasuke!' },
+    { id:2, likeCount: 0, text: 'Sakura - це кринж'},
+    { id:3, likeCount: 15, text: 'I like team №7' }]
   },
   dialogs: {
     messages: [
@@ -22,6 +24,13 @@ let state = {
     ]
   }
 
+}
+
+export let addPost=(postTest) => {
+  let newId = state.profile.posts.length;
+  let newPost =  {id:newId, likeCount:0, text:postTest} ;
+  state.profile.posts.push(newPost);
+  renderPage(state, addPost);
 }
 
 export default state;

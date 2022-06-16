@@ -6,13 +6,13 @@ import Post from './Post/Post';
 
 const Myposts = (props) => {
 
-   let commentElements = props.myPostState.comments.map(comment => <Post message={comment.message} ava={comment.ava} likeCount={comment.likeCount} />)
+   let postElements = props.myPostState.posts.map(post => <Post text={post.text} likeCount={post.likeCount} />)
 
   return (
     <div className={module.posts}>
-      <NewPost />
+      <NewPost newPostFn={props.newPostFn}/>
       <div>
-        {commentElements}
+        {postElements}
       </div>
     </div>
   );
