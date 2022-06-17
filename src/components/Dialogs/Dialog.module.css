@@ -1,10 +1,48 @@
 .dialogs {
   display: grid;
   grid-template-columns: 2fr 10fr;
+  grid-template-areas:
+    "contacts messages"
+    "contacts  newMessage";
   padding: 5px;
 }
 
-.contacts {}
+.contacts {
+  grid-area: contacts;
+}
 
 
-.messages {}
+.messages {
+  grid-area: messages;
+}
+
+.messages img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+}
+
+.sender {
+  display: grid;
+  grid-template-columns: 10% 90%;
+}
+
+.recipient {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  text-align: right;
+}
+
+.newMessage {
+  grid-area: newMessage;
+}
+
+.newMessage textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.newMessage button {
+  float: right;
+}

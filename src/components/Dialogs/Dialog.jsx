@@ -2,6 +2,8 @@ import { NavLink } from 'react-router-dom';
 import module from './Dialog.module.css';
 import Contact from './Contact/Contact';
 import Message from './Message/Message';
+import Sender from './Sender/Sender'
+import Recipient from './Recipient/Recipient'
 import React from 'react';
 
 
@@ -11,15 +13,10 @@ const Dialog = (props) => {
     return <Contact id={contact.id} name={contact.name} />
   })
 
-  let messageElements = props.dialogsState.messages.map((message) => {
-    return <Message id={message.id} messageText={message.messageText} />
-  })
-
-  
   let newMessageElement = React.createRef();
-  
+
   const sendNewMessage = () => {
-    console.log("Message: "+newMessageElement.current.value);
+    console.log("Message: " + newMessageElement.current.value);
   }
 
   return (
@@ -28,13 +25,14 @@ const Dialog = (props) => {
         {contactElements}
       </div>
       <div className={module.messages}>
-        {messageElements}
+        <Sender messageText='Hello' ava='https://i.pinimg.com/originals/7b/ce/25/7bce255e224f6cc9b5d52e60ee587abb.jpg' />
+        <Recipient messageText='Hi' ava='https://avatars.mds.yandex.net/get-zen_doc/1708007/pub_6043694a665e4413f3c4ad55_6043ad4d58285736ddaf8c1e/scale_1200' />
       </div>
-      <div>
+      <div className={module.newMessage}>
         <textarea ref={newMessageElement} ></textarea>
         <button onClick={sendNewMessage}>Send</button>
       </div>
-      
+
     </div>
 
   );
