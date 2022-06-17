@@ -1,12 +1,14 @@
-import { renderPage } from "../render";
+let renderPage = () => {
+  console.log("State was changed");
+}
 
 let state = {
   profile: {
-    posts: [{ id:0, likeCount: 10, text: 'Naruto is the best!'},
-    { id:1, likeCount: 2, text: 'I love Sasuke!' },
-    { id:2, likeCount: 0, text: 'Sakura - це кринж'},
-    { id:3, likeCount: 15, text: 'I like team №7' }],
-    newPostText:''
+    posts: [{ id: 0, likeCount: 10, text: 'Naruto is the best!' },
+    { id: 1, likeCount: 2, text: 'I love Sasuke!' },
+    { id: 2, likeCount: 0, text: 'Sakura - це кринж' },
+    { id: 3, likeCount: 15, text: 'I like team №7' }],
+    newPostText: ''
   },
   dialogs: {
     messages: [
@@ -27,16 +29,22 @@ let state = {
 
 }
 
-export let updateNewPostText = (text) => {
-  state.profile.newPostText=text;
-  renderPage(state, addPost, updateNewPostText);
+window.state = state;
+
+export const updateNewPostText = (text) => {
+  state.profile.newPostText = text;
+  renderPage(state);
 }
 
-export let addPost=() => {
+export const addPost = () => {
   let newId = state.profile.posts.length;
-  let newPost =  {id:newId, likeCount:0, text:state.profile.newPostText} ;
+  let newPost = { id: newId, likeCount: 0, text: state.profile.newPostText };
   state.profile.posts.push(newPost);
-  renderPage(state, addPost, updateNewPostText);
+  renderPage(state);
+}
+
+export const subscribe = (observer) => {
+  renderPage = observer;
 }
 
 export default state;
