@@ -3,13 +3,10 @@ import Myposts from './Myposts/Myposts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
-
   return (
     <div className={module.profile}>
       <ProfileInfo />
-      <Myposts myPostState={props.profileState} 
-        newPostFn={props.newPostFn} 
-        updateNewPostText={props.updateNewPostText}/>
+      <Myposts appStore={props.appStore} />
     </div>
   )
 }

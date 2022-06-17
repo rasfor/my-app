@@ -14,12 +14,8 @@ function App(props) {
         <Navbar />
         <div className='App-content' >
           <Routes >
-            <Route path='/profile' 
-              element={<Profile 
-                profileState={props.appState.profile} 
-                newPostFn={props.newPostFn} 
-                updateNewPostText={props.updateNewPostText} />} />
-            <Route path='/dialogs/*' element={<Dialog dialogsState={props.appState.dialogs} />} />
+            <Route path='/profile' element={<Profile appStore={props.appStore} />} />
+            <Route path='/dialogs/*' element={<Dialog dialogsState={props.appStore} />} />
           </Routes>
         </div>
       </div>
