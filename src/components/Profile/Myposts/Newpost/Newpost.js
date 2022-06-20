@@ -6,13 +6,13 @@ const Newpost = (props) => {
   let newPostText = React.createRef();
 
   let addPost = () => {
-    props.addPost();
-    props.updateNewPostText('');
+    props.dispatch({type:'ADD-POST'});
+    props.dispatch({type:'UPDATE-TEXTAREA', newText:''})
   }
 
   let onNewPostChange = () => {
-    let newText = newPostText.current.value;
-    props.updateNewPostText(newText);
+    let text = newPostText.current.value;
+    props.dispatch({type:'UPDATE-TEXTAREA', newText:text})
   }
 
   return (

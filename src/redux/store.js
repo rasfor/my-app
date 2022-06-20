@@ -31,18 +31,26 @@ let store = {
   _renderPage() {
     console.log("State was changed");
   },
-  updateNewPostText(text) {
+  subscribe(observer) {
+    this._renderPage = observer;
+  },
+  _updateNewPostText(text) {
     this._state.profile.newPostText = text;
     this._renderPage(this);
   },
-  addPost() {
+  _addPost() {
     let newId = this._state.profile.posts.length;
     let newPost = { id: newId, likeCount: 0, text: this._state.profile.newPostText };
     this._state.profile.posts.push(newPost);
     this._renderPage(this);
   },
-  subscribe(observer) {
-    this._renderPage = observer;
+  dispatch(action) {
+    if (action.type=='ADD-POST') {
+      this._addPost();
+    }
+    else if (action.type=='UPDATE-TEXTAREA') {
+      this._updateNewPostText(action.newText);
+    }
   }
 }
 
