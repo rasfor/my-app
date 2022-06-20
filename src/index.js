@@ -10,7 +10,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 let renderPage = (store) => {
   root.render(
     <React.StrictMode>
-      <App appStore={store} />
+      <App state={store.getState()} 
+          updateNewPostText={store.updateNewPostText.bind(store)} 
+          addPost={store.addPost.bind(store)} />
     </React.StrictMode>
   );
 }

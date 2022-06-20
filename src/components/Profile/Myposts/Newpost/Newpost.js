@@ -6,20 +6,20 @@ const Newpost = (props) => {
   let newPostText = React.createRef();
 
   let addPost = () => {
-    props.appStore.addPost();
-    props.appStore.updateNewPostText('');
+    props.addPost();
+    props.updateNewPostText('');
   }
 
   let onNewPostChange = () => {
     let newText = newPostText.current.value;
-    props.appStore.updateNewPostText(newText);
+    props.updateNewPostText(newText);
   }
 
   return (
     <div className={module.newPost}>
       <div>
         <textarea ref={newPostText}
-          value={props.appStore.getState().profile.newPostText}
+          value={props.profileState.newPostText}
           onChange={onNewPostChange} />
       </div>
       <div>

@@ -6,12 +6,12 @@ import Post from './Post/Post';
 
 const Myposts = (props) => {
 
-  let posts = props.appStore.getState().profile.posts;
+  let posts = props.profileState.posts;
   let postElements = posts.map(post => <Post text={post.text} likeCount={post.likeCount} />)
 
   return (
     <div className={module.posts}>
-      <NewPost appStore={props.appStore} />
+      <NewPost profileState={props.profileState} updateNewPostText={props.updateNewPostText} addPost={props.addPost}/>
       <div>
         {postElements}
       </div>

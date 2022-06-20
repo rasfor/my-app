@@ -28,23 +28,21 @@ let store = {
   getState() {
     return this._state;
   },
-  renderPage() {
+  _renderPage() {
     console.log("State was changed");
   },
   updateNewPostText(text) {
-    let state = this.getState();
-    state.profile.newPostText = text;
-    this.renderPage(this);
+    this._state.profile.newPostText = text;
+    this._renderPage(this);
   },
   addPost() {
-    let state = this.getState();
-    let newId = state.profile.posts.length;
-    let newPost = { id: newId, likeCount: 0, text: state.profile.newPostText };
-    state.profile.posts.push(newPost);
-    this.renderPage(this);
+    let newId = this._state.profile.posts.length;
+    let newPost = { id: newId, likeCount: 0, text: this._state.profile.newPostText };
+    this._state.profile.posts.push(newPost);
+    this._renderPage(this);
   },
   subscribe(observer) {
-    this.renderPage = observer;
+    this._renderPage = observer;
   }
 }
 
