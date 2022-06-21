@@ -1,3 +1,7 @@
+const ADD_POST = 'ADD_POST';
+
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+
 let store = {
   _state: {
     profile: {
@@ -45,14 +49,21 @@ let store = {
     this._renderPage(this);
   },
   dispatch(action) {
-    if (action.type=='ADD-POST') {
+    if (action.type == ADD_POST) {
       this._addPost();
     }
-    else if (action.type=='UPDATE-TEXTAREA') {
+    else if (action.type == UPDATE_NEW_POST_TEXT) {
       this._updateNewPostText(action.newText);
     }
   }
 }
+
+export let createAddPostObj = () => ({ type: ADD_POST });
+
+export let createUpdateNewPostTextObj = (text) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  newText: text
+})
 
 window.store = store;
 

@@ -1,18 +1,19 @@
 import React from 'react';
 import module from './Newpost.module.css'
+import { createAddPostObj, createUpdateNewPostTextObj } from '../../../../redux/store'
 
 const Newpost = (props) => {
 
   let newPostText = React.createRef();
 
   let addPost = () => {
-    props.dispatch({type:'ADD-POST'});
-    props.dispatch({type:'UPDATE-TEXTAREA', newText:''})
+    props.dispatch(createAddPostObj());
+    props.dispatch(createUpdateNewPostTextObj(''))
   }
 
   let onNewPostChange = () => {
     let text = newPostText.current.value;
-    props.dispatch({type:'UPDATE-TEXTAREA', newText:text})
+    props.dispatch(createUpdateNewPostTextObj(text))
   }
 
   return (
