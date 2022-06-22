@@ -8,7 +8,7 @@ const Sender = (props) => {
       <div>
         <img src={props.ava} />
       </div>
-      <text>{props.messageText}</text>
+      {props.messageText}
     </div>
   );
 }

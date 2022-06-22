@@ -1,6 +1,9 @@
-const ADD_POST = 'ADD_POST';
+import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const SEND_NEW_MESSAGE = 'SEND_NEW_MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 let store = {
   _state: {
@@ -13,13 +16,13 @@ let store = {
     },
     dialogs: {
       messages: [
-        { id: 1, messageText: 'Hello' },
-        { id: 2, messageText: 'Yo' },
-        { id: 3, messageText: 'Watashi backa' },
-        { id: 4, messageText: 'kek' },
-        { id: 5, messageText: 'chebureck' }
+        { id: 1, messageText: 'Hello', self: true },
+        { id: 2, messageText: 'Yo', self: false },
+        { id: 3, messageText: 'Watashi backa', self: true },
+        { id: 4, messageText: 'kek', self: false },
+        { id: 5, messageText: 'chebureck', self: true }
       ],
-
+      newMessageText: '',
       contacts: [
         { id: 1, name: 'Hinata' },
         { id: 2, name: 'Sasuke' },
@@ -42,6 +45,16 @@ let store = {
     this._state.profile.newPostText = text;
     this._renderPage(this);
   },
+  _updateNewMessageText(text) {
+    this._state.dialogs.newMessageText = text;
+    this._renderPage(this);
+  },
+  _sendMessage() {
+    let newId = this._state.dialogs.messages.length;
+    let newMessage = { id: newId, messageText: this._state.dialogs.newMessageText, self: true };
+    this._state.dialogs.messages.push(newMessage);
+    this._renderPage(this);
+  },
   _addPost() {
     let newId = this._state.profile.posts.length;
     let newPost = { id: newId, likeCount: 0, text: this._state.profile.newPostText };
@@ -55,6 +68,12 @@ let store = {
     else if (action.type == UPDATE_NEW_POST_TEXT) {
       this._updateNewPostText(action.newText);
     }
+    else if (action.type == UPDATE_NEW_MESSAGE_TEXT) {
+      this._updateNewMessageText(action.newText)
+    }
+    else if (action.type == SEND_NEW_MESSAGE) {
+      this._sendMessage();
+    }
   }
 }
 
@@ -64,6 +83,14 @@ export let createUpdateNewPostTextObj = (text) => ({
   type: UPDATE_NEW_POST_TEXT,
   newText: text
 })
+
+export let createUpdateNewMessageTextObj = (text) => {
+  return { type: UPDATE_NEW_MESSAGE_TEXT, newText: text }
+}
+
+export let createSendMessageObj = () => {
+  return { type: SEND_NEW_MESSAGE };
+}
 
 window.store = store;
 

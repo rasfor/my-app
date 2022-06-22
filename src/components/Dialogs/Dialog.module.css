@@ -23,17 +23,6 @@
 
 }
 
-.sender {
-  display: grid;
-  grid-template-columns: 10% 90%;
-}
-
-.recipient {
-  display: grid;
-  grid-template-columns: 90% 10%;
-  text-align: right;
-}
-
 .newMessage {
   grid-area: newMessage;
 }
