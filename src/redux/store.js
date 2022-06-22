@@ -1,4 +1,6 @@
 import { toHaveDisplayValue } from "@testing-library/jest-dom/dist/matchers";
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -41,39 +43,11 @@ let store = {
   subscribe(observer) {
     this._renderPage = observer;
   },
-  _updateNewPostText(text) {
-    this._state.profile.newPostText = text;
-    this._renderPage(this);
-  },
-  _updateNewMessageText(text) {
-    this._state.dialogs.newMessageText = text;
-    this._renderPage(this);
-  },
-  _sendMessage() {
-    let newId = this._state.dialogs.messages.length;
-    let newMessage = { id: newId, messageText: this._state.dialogs.newMessageText, self: true };
-    this._state.dialogs.messages.push(newMessage);
-    this._renderPage(this);
-  },
-  _addPost() {
-    let newId = this._state.profile.posts.length;
-    let newPost = { id: newId, likeCount: 0, text: this._state.profile.newPostText };
-    this._state.profile.posts.push(newPost);
-    this._renderPage(this);
-  },
   dispatch(action) {
-    if (action.type == ADD_POST) {
-      this._addPost();
-    }
-    else if (action.type == UPDATE_NEW_POST_TEXT) {
-      this._updateNewPostText(action.newText);
-    }
-    else if (action.type == UPDATE_NEW_MESSAGE_TEXT) {
-      this._updateNewMessageText(action.newText)
-    }
-    else if (action.type == SEND_NEW_MESSAGE) {
-      this._sendMessage();
-    }
+    this._state.profile = profileReducer(this._state.profile, action);
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action);
+    this._renderPage(this);
+
   }
 }
 
