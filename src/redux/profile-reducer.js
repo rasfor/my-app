@@ -15,6 +15,7 @@ const profileReducer = (state = initialState, action) => {
       let newId = state.posts.length;
       let newPost = { id: newId, likeCount: 0, text: state.newPostText };
       state.posts.push(newPost);
+      state.newPostText = '';
       return state;
     case UPDATE_NEW_POST_TEXT:
       state.newPostText = action.newText;

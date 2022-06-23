@@ -7,20 +7,19 @@ const Newpost = (props) => {
   let newPostText = React.createRef();
 
   let addPost = () => {
-    props.dispatch(createAddPostObj());
-    props.dispatch(createUpdateNewPostTextObj(''))
+    props.addPost();
   }
 
   let onNewPostChange = () => {
     let text = newPostText.current.value;
-    props.dispatch(createUpdateNewPostTextObj(text))
+    props.onNewPostChange(text)
   }
 
   return (
     <div className={module.newPost}>
       <div>
         <textarea ref={newPostText}
-          value={props.profileState.newPostText}
+          value={props.newPostText}
           onChange={onNewPostChange} />
       </div>
       <div>
