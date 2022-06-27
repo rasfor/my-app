@@ -1,36 +1,28 @@
 import React from 'react';
 import { createUpdateNewMessageTextObj, createSendMessageObj } from '../../redux/store'
-import StoreContext from '../../StoreContext';
+import { connect } from 'react-redux/es/exports';
 import Dialog from './Dialog'
 
 
-const DialogContainer = (props) => {
-
-
-  return (
-    <StoreContext.Consumer >
-      {
-        (store) => {
-
-          let state = store.getState();
-
-          const sendNewMessage = () => {
-            store.dispatch(createSendMessageObj())
-          }
-
-          const updateNewMessageText = (text) => {
-            store.dispatch(createUpdateNewMessageTextObj(text));
-          };
-          return <Dialog contacts={state.dialogs.contacts}
-            newMessageText={state.dialogs.newMessageText}
-            messages={state.dialogs.messages}
-            sendNewMessage={sendNewMessage}
-            updateNewMessageText={updateNewMessageText} />
-        }
-      }
-    </StoreContext.Consumer>
-
-  );
+let mapStateToProps = (state) => {
+  return {
+    contacts:state.dialogs.contacts,
+    newMessageText:state.dialogs.newMessageText,
+    messages:state.dialogs.messages
+  }
 }
+
+let mapDispatchTpProps = (dispatch) => {
+  return {
+    sendNewMessage:()=>{
+      dispatch(createSendMessageObj())
+    },
+    updateNewMessageText: (text)=> {
+      dispatch(createUpdateNewMessageTextObj(text));
+    }
+  }
+}
+
+const DialogContainer = connect(mapStateToProps,mapDispatchTpProps)(Dialog)
 
 export default DialogContainer;
