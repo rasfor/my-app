@@ -19,16 +19,15 @@ const Dialog = (props) => {
 
 
   let contactElements = props.contacts.map((contact) => {
-    return <Contact id={contact.id} name={contact.name} />
+    return <Contact key={contact.id} id={contact.id} name={contact.name} />
   })
 
   let messageElements = props.messages.map((message) => {
     if (message.self == true)
-      return <Recipient messageText={message.messageText} ava='https://avatars.mds.yandex.net/get-zen_doc/1708007/pub_6043694a665e4413f3c4ad55_6043ad4d58285736ddaf8c1e/scale_1200' />
+      return <Recipient key={message.id} messageText={message.messageText} ava='https://avatars.mds.yandex.net/get-zen_doc/1708007/pub_6043694a665e4413f3c4ad55_6043ad4d58285736ddaf8c1e/scale_1200' />
     else
-      return <Sender messageText={message.messageText} ava='https://i.pinimg.com/originals/7b/ce/25/7bce255e224f6cc9b5d52e60ee587abb.jpg' />
+      return <Sender key={message.id} messageText={message.messageText} ava='https://i.pinimg.com/originals/7b/ce/25/7bce255e224f6cc9b5d52e60ee587abb.jpg' />
   });
-
   return (
     <div className={module.dialogs}>
       <div className={module.contacts}>

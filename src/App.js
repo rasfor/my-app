@@ -12,7 +12,7 @@ function App(props) {
       <div className="App">
         <Header />
         <Navbar />
-        <div className='App-content' >
+        <div className="App-content" >
           <Routes >
             <Route path='/profile' element={<Profile store={props.store} />} />
             <Route path='/dialogs/*' element={<DialogContainer store={props.store} />} />

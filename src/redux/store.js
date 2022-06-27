@@ -18,18 +18,18 @@ let store = {
     },
     dialogs: {
       messages: [
-        { id: 1, messageText: 'Hello', self: true },
-        { id: 2, messageText: 'Yo', self: false },
-        { id: 3, messageText: 'Watashi backa', self: true },
-        { id: 4, messageText: 'kek', self: false },
-        { id: 5, messageText: 'chebureck', self: true }
+        { id: 0, messageText: 'Hello', self: true },
+        { id: 1, messageText: 'Yo', self: false },
+        { id: 2, messageText: 'Watashi backa', self: true },
+        { id: 3, messageText: 'kek', self: false },
+        { id: 4, messageText: 'chebureck', self: true }
       ],
       newMessageText: '',
       contacts: [
-        { id: 1, name: 'Hinata' },
-        { id: 2, name: 'Sasuke' },
-        { id: 3, name: 'Sakura' },
-        { id: 4, name: 'Kakashi' }
+        { id: 0, name: 'Hinata' },
+        { id: 1, name: 'Sasuke' },
+        { id: 2, name: 'Sakura' },
+        { id: 3, name: 'Kakashi' }
       ]
     }
 
