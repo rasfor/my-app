@@ -4,10 +4,9 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/redux-store';
 import App from './App';
-import { Provider } from 'react-redux/es/exports';
+import {Provider} from 'react-redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-let renderPage = () => {
   root.render(
     <React.StrictMode>
       <Provider store={store} >
@@ -15,12 +14,6 @@ let renderPage = () => {
       </Provider>
     </React.StrictMode>
   );
-}
-
-renderPage();
-store.subscribe(() => {
-  renderPage();
-});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

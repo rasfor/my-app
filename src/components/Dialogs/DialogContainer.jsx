@@ -1,6 +1,5 @@
-import React from 'react';
 import { createUpdateNewMessageTextObj, createSendMessageObj } from '../../redux/store'
-import { connect } from 'react-redux/es/exports';
+import { connect } from 'react-redux';
 import Dialog from './Dialog'
 
 
@@ -23,6 +22,6 @@ let mapDispatchTpProps = (dispatch) => {
   }
 }
 
-const DialogContainer = connect(mapStateToProps,mapDispatchTpProps)(Dialog)
+const DialogContainer = connect(mapStateToProps,mapDispatchTpProps)(Dialog);
 
 export default DialogContainer;

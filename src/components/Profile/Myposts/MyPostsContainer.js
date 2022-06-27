@@ -1,6 +1,7 @@
 import Myposts from "./Myposts";
 import { createUpdateNewPostTextObj, createAddPostObj } from "../../../redux/store";
-import {connect} from 'react-redux/es/exports'
+import {connect} from 'react-redux'
+
 
 let mapStateToProps = (state) =>{
   return {
