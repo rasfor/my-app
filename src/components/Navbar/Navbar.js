@@ -21,6 +21,9 @@ const Navbar = () => {
       <div className={module.item}>
         <NavLink className={setClass} to='/music'>Music</NavLink>
       </div>
+      <div className={module.item} >
+        <NavLink className={setClass} to="/allusers">All users</NavLink>
+      </div>
     </nav>
   );
 }
