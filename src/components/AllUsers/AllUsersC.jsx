@@ -4,17 +4,17 @@ import module from './AllUsers.module.css';
 import React from 'react';
 
 class AllUsersC extends React.Component {
-  getUsers = () => {
+  componentDidMount() {
     if (this.props.users.length === 0) {
       axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
         this.props.setUsers(response.data.items)
       })
     }
   }
+
   render() {
     return (
       <div className={module.users} >
-        <button onClick={this.getUsers}> Get users</button>
         <div>
           {this.props.users.map((user) => {
             return <User key={user.id}
