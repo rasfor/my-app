@@ -1,11 +1,12 @@
 import module from './User.module.css'
+import userPhoto from '../../../asserts/images/user.jpg'
 
 const User = (props) => {
     return (
-        <div className={module.user} key={props.userData.id}>
+        <div className={module.user}>
             <span>
                 <div>
-                    <img src='https://i.pinimg.com/280x280_RS/8c/3b/3e/8c3b3e4566431a90898d083961b2c0d6.jpg' />
+                    <img src={props.userData.photos.small != null ? props.userData.photos.small : userPhoto} />
                 </div>
                 <div>
                     {props.userData.followed ?
@@ -15,10 +16,10 @@ const User = (props) => {
             </span>
             <span>
                 <div>
-                    {props.userData.name}  {props.userData.age}
+                    {props.userData.name}
                 </div>
                 <div>
-                    {props.userData.status} {props.userData.country}
+                    {props.userData.status}
                 </div>
             </span>
 
