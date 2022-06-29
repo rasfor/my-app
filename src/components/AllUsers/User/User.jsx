@@ -14,12 +14,12 @@ const User = (props) => {
                         <button onClick={() => { props.follow(props.userData.id) }}> Follow</button>}
                 </div>
             </span>
-            <span>
+            <span className={module.content}>
                 <div>
                     {props.userData.name}
                 </div>
                 <div>
-                    {props.userData.status}
+                    {props.userData.status !== null ? props.userData.status : 'without status'}
                 </div>
             </span>
 
