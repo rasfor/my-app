@@ -1,0 +1,16 @@
+.user {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+}
+
+.user .content {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.user img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+}
