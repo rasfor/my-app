@@ -1,31 +1,34 @@
-import * as axios from 'axios';
+import React from "react";
 import User from './User/User';
 import module from './AllUsers.module.css';
 
+
 const AllUsers = (props) => {
-
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
-                props.setUsers(response.data.items)
-            })
-        }
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
-
-    let users = props.users.map((user) => {
-        return <User key={user.id}
-            userData={user}
-            follow={props.follow}
-            unfollow={props.unfollow} />
-    })
     return (
-        <div className={module.users}>
-            <button onClick={getUsers}> Get users</button>
+        <div className={module.users} >
             <div>
-                {users}
+                {pages.map((page) => {
+                    return (
+                        <span className={props.currentPage === page ? module.selectedPage : module.page}
+                            onClick={() => { props.onPageChange(page) }}>{page}</span>
+                    )
+                })}
+            </div>
+            <div>
+                {props.users.map((user) => {
+                    return <User key={user.id}
+                        userData={user}
+                        follow={props.follow}
+                        unfollow={props.unfollow} />
+                })}
             </div>
         </div>
-    )
+    );
 }
 
 export default AllUsers;
