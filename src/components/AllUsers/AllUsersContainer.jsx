@@ -1,10 +1,14 @@
 import AllUsersC from './AllUsersC'
 import { connect } from 'react-redux';
-import { followAC, unfollowAC, setUsersAC } from '../../redux/allUsers-reducer';
+import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setUsersTotalCountAC } from '../../redux/allUsers-reducer';
+import { click } from '@testing-library/user-event/dist/click';
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users
+    users: state.usersPage.users,
+    pageSize: state.usersPage.pageSize,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    currentPage: state.usersPage.currentPage
   }
 };
 
@@ -18,6 +22,12 @@ let mapDispatchToProps = (dispatch) => {
     },
     setUsers: (users) => {
       dispatch(setUsersAC(users))
+    },
+    setCurrentPage: (clickedPage) => {
+      dispatch(setCurrentPageAC(clickedPage))
+    },
+    setUsersTotalCount: (totalCount) => {
+      dispatch(setUsersTotalCountAC(totalCount))
     }
   }
 };
