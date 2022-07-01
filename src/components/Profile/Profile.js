@@ -3,10 +3,9 @@ import MyPostsContainer from './Myposts/MyPostsContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
-
   return (
     <div className={module.profile}>
-      <ProfileInfo />
+      {!!props.profile && <ProfileInfo profileData={props.profile} />}
       <MyPostsContainer store={props.store} />
     </div>
   )

@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
 import AllUsersContainer from './components/AllUsers/AllUsersContainer'
 import DialogContainer from './components/Dialogs/DialogContainer';
@@ -15,7 +15,7 @@ function App(props) {
         <Navbar />
         <div className="App-content" >
           <Routes >
-            <Route path='/profile' element={<Profile store={props.store} />} />
+            <Route path='/profile/*' element={<ProfileContainer/>} />
             <Route path='/dialogs/*' element={<DialogContainer store={props.store} />} />
             <Route path='/allusers' element={<AllUsersContainer />} />
           </Routes>
