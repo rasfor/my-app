@@ -15,16 +15,20 @@ const User = (props) => {
                 </div>
                 <div>
                     {props.userData.followed ?
-                        <button onClick={() => { 
+                        <button disabled={props.followingProcess} onClick={() => { 
+                            props.setFollowingProcess(true);
                             userApi.unfollow(props.userData.id).then((data)=>{
                                 if (data.resultCode === 0)
                                     props.unfollow(props.userData.id) 
+                                    props.setFollowingProcess(false);
                               })
                             }}> Unfollow</button> :
-                        <button onClick={() => { 
-                              userApi.follow(props.userData.id).then((data)=>{
+                        <button disabled={props.followingProcess} onClick={() => { 
+                            props.setFollowingProcess(true);
+                            userApi.follow(props.userData.id).then((data)=>{
                                 if (data.resultCode === 0)
-                                    props.follow(props.userData.id) 
+                                    props.follow(props.userData.id);
+                                    props.setFollowingProcess(false); 
                               })
                             }}> Follow</button>}
                 </div>

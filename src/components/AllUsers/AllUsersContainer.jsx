@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setIsFetching } from '../../redux/allUsers-reducer';
+import { follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setIsFetching, setFollowingProcess } from '../../redux/allUsers-reducer';
 import AllUsers from './AllUsers';
 import React from 'react';
 import Preloader from '../common/Preloader/Preloader';
@@ -39,6 +39,8 @@ class AllUsersContainer extends React.Component {
           onPageChange={this.onPageChange}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
+          setFollowingProcess={this.props.setFollowingProcess}
+          followingProcess={this.props.followingProcess}
         />
       </>
     )
@@ -51,7 +53,8 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingProcess: state.usersPage.followingProcess
   }
 };
 
@@ -61,5 +64,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setUsersTotalCount,
-    setIsFetching
+    setIsFetching,
+    setFollowingProcess
   })(AllUsersContainer);;
