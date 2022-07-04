@@ -1,5 +1,5 @@
 import './App.css';
-import Header from './components/Header/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
 import AllUsersContainer from './components/AllUsers/AllUsersContainer'
@@ -11,7 +11,7 @@ function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        <HeaderContainer />
         <Navbar />
         <div className="App-content" >
           <Routes >
