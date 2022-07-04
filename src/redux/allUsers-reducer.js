@@ -12,7 +12,7 @@ let ininitializeState = {
     totalUsersCount: 21,
     currentPage: 1,
     isFetching: false,
-    followingProcess: false
+    followingProcess: [2,5]
 };
 
 const allUsersReducer = (state = ininitializeState, action) => {
@@ -54,7 +54,10 @@ const allUsersReducer = (state = ininitializeState, action) => {
             return { ...state, isFetching: action.isFetching }
         }
         case TOGGLE_IS_FOLLOWING: {
-            return {...state, followingProcess:action.followingProcess}
+            return {...state, 
+                followingProcess: action.followingProcess
+                ? [...state.followingProcess, action.userId]
+                : state.followingProcess.filter(id => id !=action.userId)}
         }
         default:
             return state;
@@ -103,10 +106,11 @@ export const setIsFetching = (isFetching) => {
     }
 }
 
-export const setFollowingProcess = (followingProcess) => {
+export const setFollowingProcess = (followingProcess, userId) => {
     return {
         type:TOGGLE_IS_FOLLOWING,
-        followingProcess
+        followingProcess,
+        userId
     }
 }
 

@@ -14,21 +14,21 @@ const User = (props) => {
                     </NavLink>
                 </div>
                 <div>
-                    {props.userData.followed ?
-                        <button disabled={props.followingProcess} onClick={() => { 
-                            props.setFollowingProcess(true);
+                    {props.userData.followed ? 
+                        <button disabled={props.followingProcess.some(id=> id ===props.userData.id)} onClick={() => { 
+                            props.setFollowingProcess(true,props.userData.id);
                             userApi.unfollow(props.userData.id).then((data)=>{
                                 if (data.resultCode === 0)
                                     props.unfollow(props.userData.id) 
-                                    props.setFollowingProcess(false);
+                                    props.setFollowingProcess(false, props.userData.id);
                               })
                             }}> Unfollow</button> :
-                        <button disabled={props.followingProcess} onClick={() => { 
-                            props.setFollowingProcess(true);
+                        <button disabled={props.followingProcess.some(id => id === props.userData.id)} onClick={() => { 
+                            props.setFollowingProcess(true, props.userData.id);
                             userApi.follow(props.userData.id).then((data)=>{
                                 if (data.resultCode === 0)
                                     props.follow(props.userData.id);
-                                    props.setFollowingProcess(false); 
+                                    props.setFollowingProcess(false, props.userData.id); 
                               })
                             }}> Follow</button>}
                 </div>
