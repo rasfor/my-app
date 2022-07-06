@@ -1,3 +1,4 @@
+import { userApi } from '../api/api'
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -12,7 +13,7 @@ let ininitializeState = {
     totalUsersCount: 21,
     currentPage: 1,
     isFetching: false,
-    followingProcess: [2,5]
+    followingProcess: [2, 5]
 };
 
 const allUsersReducer = (state = ininitializeState, action) => {
@@ -54,24 +55,26 @@ const allUsersReducer = (state = ininitializeState, action) => {
             return { ...state, isFetching: action.isFetching }
         }
         case TOGGLE_IS_FOLLOWING: {
-            return {...state, 
+            return {
+                ...state,
                 followingProcess: action.followingProcess
-                ? [...state.followingProcess, action.userId]
-                : state.followingProcess.filter(id => id !=action.userId)}
+                    ? [...state.followingProcess, action.userId]
+                    : state.followingProcess.filter(id => id != action.userId)
+            }
         }
         default:
             return state;
     }
 }
 
-export const follow = (userId) => {
+export const followSuccess = (userId) => {
     return {
         type: FOLLOW,
         userId
     }
 }
 
-export const unfollow = (userId) => {
+export const unfollowSuccess = (userId) => {
     return {
         type: UNFOLLOW,
         userId
@@ -108,9 +111,45 @@ export const setIsFetching = (isFetching) => {
 
 export const setFollowingProcess = (followingProcess, userId) => {
     return {
-        type:TOGGLE_IS_FOLLOWING,
+        type: TOGGLE_IS_FOLLOWING,
         followingProcess,
         userId
+    }
+}
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+        userApi.getUsers(currentPage, pageSize).then((data) => {
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount));
+            dispatch(setIsFetching(false));
+
+        })
+    }
+}
+
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(setFollowingProcess(true, userId));
+        userApi.unfollow(userId).then((data) => {
+            if (data.resultCode === 0)
+                dispatch(unfollowSuccess(userId))
+            dispatch(setFollowingProcess(false, userId));
+        })
+
+    }
+}
+
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(setFollowingProcess(true, userId));
+        userApi.follow(userId).then((data) => {
+            if (data.resultCode === 0)
+                dispatch(followSuccess(userId))
+            dispatch(setFollowingProcess(false, userId));
+        })
+
     }
 }
 

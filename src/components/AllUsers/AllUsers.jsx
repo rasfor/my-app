@@ -24,9 +24,9 @@ const AllUsers = (props) => {
                     return <User key={user.id}
                         userData={user}
                         follow={props.follow}
-                        unfollow={props.unfollow} 
-                        setFollowingProcess={props.setFollowingProcess}
-                        followingProcess={props.followingProcess}/>
+                        unfollow={props.unfollow}
+                        followingProcess={props.followingProcess}
+                    />
                 })}
             </div>
         </div>

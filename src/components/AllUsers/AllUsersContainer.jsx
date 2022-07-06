@@ -1,31 +1,16 @@
 import { connect } from 'react-redux';
-import { follow, unfollow, setUsers, setCurrentPage, setUsersTotalCount, setIsFetching, setFollowingProcess } from '../../redux/allUsers-reducer';
+import { follow, unfollow, setUsers, setCurrentPage, getUsers } from '../../redux/allUsers-reducer';
 import AllUsers from './AllUsers';
 import React from 'react';
 import Preloader from '../common/Preloader/Preloader';
-import {userApi} from '../../api/api';
 
 class AllUsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setIsFetching(true);
-    if (this.props.users.length === 0) {
-      userApi.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-        this.props.setUsers(data.items);
-        this.props.setUsersTotalCount(data.totalCount);
-        this.props.setIsFetching(false);
-
-      })
-    }
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChange = (clickedPage) => {
-    this.props.setIsFetching(true);
-    this.props.setCurrentPage(clickedPage);
-    userApi.getUsers(clickedPage, this.props.pageSize).then((data) => {
-      this.props.setUsers(data.items)
-      this.props.setIsFetching(false);
-
-    })
+    this.props.getUsers(clickedPage, this.props.pageSize);
   }
 
   render() {
@@ -39,7 +24,6 @@ class AllUsersContainer extends React.Component {
           onPageChange={this.onPageChange}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
-          setFollowingProcess={this.props.setFollowingProcess}
           followingProcess={this.props.followingProcess}
         />
       </>
@@ -59,11 +43,9 @@ let mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setUsersTotalCount,
-    setIsFetching,
-    setFollowingProcess
-  })(AllUsersContainer);;
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  getUsers
+})(AllUsersContainer);;

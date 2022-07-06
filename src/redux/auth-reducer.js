@@ -1,3 +1,4 @@
+import { userApi } from '../api/api'
 const SET_AUTH_USER = 'SET_AUTH_USER'
 
 let ininitializeState = {
@@ -8,13 +9,13 @@ let ininitializeState = {
 }
 
 const authUserReducer = (state = ininitializeState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SET_AUTH_USER: {
             return {
                 ...state,
                 ...action.data,
                 isAuthorized: true
-            }   
+            }
         }
         default:
             return state;
@@ -24,13 +25,24 @@ const authUserReducer = (state = ininitializeState, action) => {
 
 export const setAuthUser = (userId, email, login) => {
     return {
-        type:SET_AUTH_USER,
+        type: SET_AUTH_USER,
         data: {
             userId,
             email,
             login
         }
 
+    }
+}
+
+export const getCurrentUser = () => {
+    return (dispatch) => {
+        userApi.getCurrentUser().then((response) => {
+            if (response.data.resultCode === 0) {
+                let { id, email, login } = response.data.data;
+                dispatch(setAuthUser(id, email, login))
+            }
+        })
     }
 }
 
