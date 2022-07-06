@@ -18,7 +18,8 @@ class ProfileContainer extends React.Component {
 
 let matchStateToProps = (state) => {
   return {
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    isAuthorized: state.auth.isAuthorized
   }
 }
 
