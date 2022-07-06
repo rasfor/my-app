@@ -1,3 +1,4 @@
+import { userApi } from '../api/api';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -12,19 +13,19 @@ let initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  let stateCopy = {...state};
+  let stateCopy = { ...state };
 
   switch (action.type) {
-    case ADD_POST:{
+    case ADD_POST: {
       let newId = state.posts.length;
       let body = stateCopy.newPostText;
       return {
         ...state,
-        newPostText:'',
-        posts:[...state.posts,{id: newId, likeCount: 0, text: body}]
+        newPostText: '',
+        posts: [...state.posts, { id: newId, likeCount: 0, text: body }]
       }
     }
-    case UPDATE_NEW_POST_TEXT:{
+    case UPDATE_NEW_POST_TEXT: {
       return {
         ...state,
         newPostText: action.newText
@@ -42,10 +43,21 @@ const profileReducer = (state = initialState, action) => {
 
 }
 
-export const setUserProfile = (profile)=> {
+export const setUserProfile = (profile) => {
   return {
-    type:SET_USER_PROFILE,
+    type: SET_USER_PROFILE,
     profile
+  }
+}
+
+export const getUserProfile = (userId) => {
+  return (dispatch) => {
+    if (!userId) {
+      userId = 2;
+    }
+    userApi.getProfile(userId).then((data) => {
+      dispatch(setUserProfile(data));
+    })
   }
 }
 
