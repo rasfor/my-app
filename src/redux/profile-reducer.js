@@ -1,7 +1,9 @@
-import { userApi } from '../api/api';
+import { profileApi } from '../api/api';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const GET_STATUS = 'GET_STATUS';
+
 
 let initialState = {
   posts: [{ id: 0, likeCount: 10, text: 'Naruto is the best!' },
@@ -9,12 +11,12 @@ let initialState = {
   { id: 2, likeCount: 0, text: 'Sakura - це кринж' },
   { id: 3, likeCount: 15, text: 'I like team №7' }],
   newPostText: '',
-  profile: null
+  profile: null,
+  status: ''
 };
 
 const profileReducer = (state = initialState, action) => {
   let stateCopy = { ...state };
-
   switch (action.type) {
     case ADD_POST: {
       let newId = state.posts.length;
@@ -37,6 +39,12 @@ const profileReducer = (state = initialState, action) => {
         profile: action.profile
       }
     }
+    case GET_STATUS: {
+      return {
+        ...state,
+        status: action.status
+      }
+    }
     default:
       return state;
   }
@@ -50,13 +58,34 @@ export const setUserProfile = (profile) => {
   }
 }
 
+export const setStatus = (status) => {
+  return {
+    type: GET_STATUS,
+    status
+  }
+}
+
 export const getUserProfile = (userId) => {
   return (dispatch) => {
-    if (!userId) {
-      userId = 2;
-    }
-    userApi.getProfile(userId).then((data) => {
+    profileApi.getProfile(userId).then((data) => {
       dispatch(setUserProfile(data));
+    })
+  }
+}
+
+export const getUserStatus = (userId) => {
+  return (dispatch) => {
+    profileApi.getStatus(userId).then((response) => {
+      dispatch(setStatus(response.data));
+    })
+  }
+}
+
+export const updateUserStatus = (status) => {
+  return (dispatch) => {
+    profileApi.updateStatus(status).then((response) => {
+      if (response.data.resultCode === 0)
+        dispatch(setStatus(status));
     })
   }
 }
