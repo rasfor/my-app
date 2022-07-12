@@ -2,6 +2,14 @@ import React from "react";
 
 class Status extends React.Component {
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.status != this.props.status) {
+      this.setState({
+        status: this.props.status
+      })
+    }
+  }
+
   state = {
     editMode: false,
     status: this.props.status
