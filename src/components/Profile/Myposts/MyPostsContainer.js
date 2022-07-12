@@ -1,5 +1,5 @@
 import Myposts from "./Myposts";
-import { createUpdateNewPostTextObj, createAddPostObj } from "../../../redux/store";
+import { createAddPostObj } from "../../../redux/profile-reducer";
 import {connect} from 'react-redux'
 
 
@@ -12,11 +12,8 @@ let mapStateToProps = (state) =>{
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    addPost:()=>{
-      dispatch(createAddPostObj());
-    },
-    onNewPostChange: (newPostText)=>{
-      dispatch(createUpdateNewPostTextObj(newPostText))
+    addPost:(newPostText)=>{
+      dispatch(createAddPostObj(newPostText));
     }
   }
 }

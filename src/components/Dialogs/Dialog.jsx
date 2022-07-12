@@ -3,20 +3,13 @@ import Contact from './Contact/Contact';
 import Sender from './Sender/Sender'
 import Recipient from './Recipient/Recipient'
 import React from 'react';
-
+import MessageReduxForm from "./MessageReduxform/MessageReduxForm";
 
 const Dialog = (props) => {
 
-  let newMessageElement = React.createRef();
-
-  const sendNewMessage = () => {
-    props.sendNewMessage();
+  const sendNewMessage = (values) => {
+    props.sendNewMessage(values.newMessageText);
   }
-
-  const updateNewMessageText = () => {
-    props.updateNewMessageText(newMessageElement.current.value);
-  };
-
 
   let contactElements = props.contacts.map((contact) => {
     return <Contact key={contact.id} id={contact.id} name={contact.name} />
@@ -37,8 +30,7 @@ const Dialog = (props) => {
         {messageElements}
       </div>
       <div className={module.newMessage}>
-        <textarea onChange={updateNewMessageText} ref={newMessageElement} value={props.newMessageText}></textarea>
-        <button onClick={sendNewMessage}>Send</button>
+          <MessageReduxForm onSubmit={sendNewMessage} />
       </div>
 
     </div>

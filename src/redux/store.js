@@ -14,7 +14,7 @@ let store = {
       { id: 1, likeCount: 2, text: 'I love Sasuke!' },
       { id: 2, likeCount: 0, text: 'Sakura - це кринж' },
       { id: 3, likeCount: 15, text: 'I like team №7' }],
-      newPostText: ''
+      newPostText: '',
     },
     dialogs: {
       messages: [
@@ -66,6 +66,6 @@ export let createSendMessageObj = () => {
   return { type: SEND_NEW_MESSAGE };
 }
 
-window.store = store;
+// window.store = store;
 
 export default store;

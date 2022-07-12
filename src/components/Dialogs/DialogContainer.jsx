@@ -1,4 +1,4 @@
-import { createUpdateNewMessageTextObj, createSendMessageObj } from '../../redux/store'
+import { createSendMessageObj } from '../../redux/dialogs-reducer'
 import { connect } from 'react-redux';
 import Dialog from './Dialog';
 import { WithAuthRedirect } from '../hoc/WithAuthRedirect';
@@ -15,11 +15,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchTpProps = (dispatch) => {
   return {
-    sendNewMessage: () => {
-      dispatch(createSendMessageObj())
-    },
-    updateNewMessageText: (text) => {
-      dispatch(createUpdateNewMessageTextObj(text));
+    sendNewMessage: (newMessageTxt) => {
+      dispatch(createSendMessageObj(newMessageTxt))
     }
   }
 }

@@ -46,4 +46,21 @@ export const getCurrentUser = () => {
     }
 }
 
+export const login = (payload) =>{
+    return (dispatch) => {
+        debugger
+        authApi.login(payload).then((response) => {
+            debugger
+            if (response.data.resultCode === 0) {
+                let data = {
+                    userId:response.data.userId,
+                    email: payload.email,
+                    login: payload.login
+                }
+                dispatch(setAuthUser(data));
+            }
+        })
+    }
+}
+
 export default authUserReducer;

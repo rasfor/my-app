@@ -40,6 +40,9 @@ export const profileApi = {
 };
 
 export const authApi = {
+    login(payload) {
+        return instance.post(`/auth/login`,payload);
+    },
     getCurrentUser() {
         return instance.get(`auth/me`);
     }

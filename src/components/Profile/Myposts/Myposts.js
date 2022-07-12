@@ -11,8 +11,7 @@ const Myposts = (props) => {
   return (
     <div className={module.posts}>
       <NewPost newPostText={props.newPostText}
-        addPost={props.addPost}
-        onNewPostChange={props.onNewPostChange} />
+        addPost={props.addPost}/>
       <div>
         {postElements}
       </div>

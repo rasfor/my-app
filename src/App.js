@@ -4,7 +4,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
 import AllUsersContainer from './components/AllUsers/AllUsersContainer'
 import DialogContainer from './components/Dialogs/DialogContainer';
-import LoginForm from './components/Login/Login'
+import LoginForm from './components/Login/LoginContainer'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 
