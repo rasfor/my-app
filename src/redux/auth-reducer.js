@@ -1,4 +1,6 @@
 import { authApi } from '../api/api';
+import {stopSubmit} from "redux-form";
+
 const SET_AUTH_USER = 'SET_AUTH_USER';
 const GET_CAPTCHA_URL = 'SET_AUTH_USER';
 
@@ -67,11 +69,15 @@ export const login = (payload) =>{
             if (response.data.resultCode === 0) {
                 dispatch(getCurrentUser());
             }
-            else if (response.data.resultCode === 10) {
-                authApi.getCaptcha().then((response) => {
-                    dispatch(getCaptchaUrl(response.url));
-                })
+            else {
+                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+                dispatch(stopSubmit("login",{_error:message}));
             }
+            // else if (response.data.resultCode === 10) {
+            //     authApi.getCaptcha().then((response) => {
+            //         dispatch(getCaptchaUrl(response.url));
+            //     })
+            // }
         })
     }
 }

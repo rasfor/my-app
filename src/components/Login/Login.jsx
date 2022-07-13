@@ -3,6 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Navigate} from "react-router-dom";
+import module from './Login.module.css'
 
 const Login = (props) => {
     let onSubmit = (formData) => {
@@ -29,6 +30,9 @@ const LoginForm = (props) => {
         <div>
           <Field type={"checkbox"} name={"rememberMe"} component={"input"}/>remember me
         </div>
+          { props.error && <div className={module.formError}>
+              {props.error}
+          </div>}
         <div>
           <button>login</button>
         </div>
