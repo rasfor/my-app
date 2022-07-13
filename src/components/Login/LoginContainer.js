@@ -5,13 +5,13 @@ import {login} from "../../redux/auth-reducer";
 
 const LoginContainer = (props) => {
     return (
-        <Login login={props.login}/>
+        <Login {...props}/>
     )
 }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-
+        isAuthorized: state.auth.isAuthorized
     }
 }
 

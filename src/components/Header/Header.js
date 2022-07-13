@@ -6,8 +6,12 @@ const Header = (props) => {
     <header className={module.header}>
       <img src='https://i0.wp.com/cdn.iconscout.com/icon/free/png-256/naruto-436774.png' />
  
-        {props.isAuthorized? props.login:<NavLink to='/login'>Login </NavLink>}
-    
+        {props.isAuthorized ?
+            <div>
+                {props.login} <button onClick={props.logout}>Logout </button>
+            </div>
+            :<NavLink to='/login'>Login </NavLink>}
+
     </header>
   );
 }

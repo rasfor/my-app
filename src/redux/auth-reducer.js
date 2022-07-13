@@ -1,11 +1,13 @@
-import { authApi } from '../api/api'
-const SET_AUTH_USER = 'SET_AUTH_USER'
+import { authApi } from '../api/api';
+const SET_AUTH_USER = 'SET_AUTH_USER';
+const GET_CAPTCHA_URL = 'SET_AUTH_USER';
 
 let ininitializeState = {
     userId: null,
     email: null,
     login: null,
-    isAuthorized: false
+    isAuthorized: false,
+    captchaUrl:null
 }
 
 const authUserReducer = (state = ininitializeState, action) => {
@@ -13,8 +15,13 @@ const authUserReducer = (state = ininitializeState, action) => {
         case SET_AUTH_USER: {
             return {
                 ...state,
-                ...action.data,
-                isAuthorized: true
+                ...action.data
+            }
+        }
+        case GET_CAPTCHA_URL: {
+            return {
+                ...state,
+                ...action.captchaUrl
             }
         }
         default:
@@ -23,15 +30,23 @@ const authUserReducer = (state = ininitializeState, action) => {
 
 }
 
-export const setAuthUser = (userId, email, login) => {
+export const setAuthUser = (userId, email, login,isAuthorized) => {
     return {
         type: SET_AUTH_USER,
         data: {
             userId,
             email,
-            login
+            login,
+            isAuthorized
         }
 
+    }
+}
+
+export const getCaptchaUrl = (captchaUrl) => {
+    return {
+        type: GET_CAPTCHA_URL,
+        captchaUrl
     }
 }
 
@@ -40,7 +55,7 @@ export const getCurrentUser = () => {
         authApi.getCurrentUser().then((response) => {
             if (response.data.resultCode === 0) {
                 let { id, email, login } = response.data.data;
-                dispatch(setAuthUser(id, email, login))
+                dispatch(setAuthUser(id, email, login, true))
             }
         })
     }
@@ -48,16 +63,24 @@ export const getCurrentUser = () => {
 
 export const login = (payload) =>{
     return (dispatch) => {
-        debugger
         authApi.login(payload).then((response) => {
-            debugger
             if (response.data.resultCode === 0) {
-                let data = {
-                    userId:response.data.userId,
-                    email: payload.email,
-                    login: payload.login
-                }
-                dispatch(setAuthUser(data));
+                dispatch(getCurrentUser());
+            }
+            else if (response.data.resultCode === 10) {
+                authApi.getCaptcha().then((response) => {
+                    dispatch(getCaptchaUrl(response.url));
+                })
+            }
+        })
+    }
+}
+
+export const logout = () =>{
+    return (dispatch) => {
+        authApi.logout().then((response) => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUser(null, null, null, false));
             }
         })
     }

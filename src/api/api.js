@@ -43,8 +43,14 @@ export const authApi = {
     login(payload) {
         return instance.post(`/auth/login`,payload);
     },
+    logout() {
+      return instance.delete('/auth/login');
+    },
     getCurrentUser() {
         return instance.get(`auth/me`);
+    },
+    getCaptcha() {
+        return instance.get(`/security/get-captcha-url`);
     }
 };
 

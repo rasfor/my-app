@@ -2,11 +2,13 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
+import {Navigate} from "react-router-dom";
 
 const Login = (props) => {
     let onSubmit = (formData) => {
         props.login(formData);
     }
+    if (props.isAuthorized) return ( <Navigate to="/profile" />)
   return (
     <div>
       <h1>LOGIN</h1>
