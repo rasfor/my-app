@@ -6,6 +6,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING';
+const FAKE = 'FAKE';
 
 let ininitializeState = {
     users: [],
@@ -13,11 +14,16 @@ let ininitializeState = {
     totalUsersCount: 21,
     currentPage: 1,
     isFetching: false,
-    followingProcess: [2, 5]
+    followingProcess: [2, 5],
+    fake: 0
 };
 
 const allUsersReducer = (state = ininitializeState, action) => {
     switch (action.type) {
+        case FAKE: {
+            return {...state,
+                fake:state.fake + 1
+        }}
         case FOLLOW: {
             let stateCopy = {
                 ...state,
