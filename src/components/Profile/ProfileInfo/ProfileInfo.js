@@ -1,5 +1,5 @@
 import module from './ProfileInfo.module.css';
-import Status from '../Status/Status';
+import StatusWithHooks from "../Status/StatusWithHooks";
 
 const ProfileInfo = (props) => {
   return (
@@ -11,7 +11,7 @@ const ProfileInfo = (props) => {
       <div>
         {props.profileData.fullName}
       </div>
-      <Status status={props.status || '---'} updateUserStatus={props.updateUserStatus} />
+      <StatusWithHooks status={props.status || '---'} updateUserStatus={props.updateUserStatus} />
     </div>
   )
 }
