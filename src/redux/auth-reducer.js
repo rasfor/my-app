@@ -53,42 +53,35 @@ export const getCaptchaUrl = (captchaUrl) => {
 }
 
 export const getCurrentUser = () => {
-    return (dispatch) => {
-        authApi.getCurrentUser().then((response) => {
-            if (response.data.resultCode === 0) {
-                let { id, email, login } = response.data.data;
-                dispatch(setAuthUser(id, email, login, true))
-            }
-        })
+    return async (dispatch) => {
+        const response = await authApi.getCurrentUser();
+        if (response.data.resultCode === 0) {
+            let { id, email, login } = response.data.data;
+            dispatch(setAuthUser(id, email, login, true))
+        }
+
     }
 }
 
 export const login = (payload) =>{
-    return (dispatch) => {
-        authApi.login(payload).then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(getCurrentUser());
-            }
-            else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
-                dispatch(stopSubmit("login",{_error:message}));
-            }
-            // else if (response.data.resultCode === 10) {
-            //     authApi.getCaptcha().then((response) => {
-            //         dispatch(getCaptchaUrl(response.url));
-            //     })
-            // }
-        })
+    return async (dispatch) => {
+        const response = await authApi.login(payload)
+        if (response.data.resultCode === 0) {
+            dispatch(getCurrentUser());
+        }
+        else {
+            let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+            dispatch(stopSubmit("login",{_error:message}));
+        }
     }
 }
 
 export const logout = () =>{
-    return (dispatch) => {
-        authApi.logout().then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUser(null, null, null, false));
-            }
-        })
+    return async (dispatch) => {
+        const response = await authApi.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUser(null, null, null, false));
+        }
     }
 }
 

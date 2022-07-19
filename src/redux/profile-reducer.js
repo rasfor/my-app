@@ -15,7 +15,6 @@ let initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  let stateCopy = { ...state };
   switch (action.type) {
     case ADD_POST: {
       let newId = state.posts.length;
@@ -71,27 +70,24 @@ export const deletePost = (postId) => {
 }
 
 export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    profileApi.getProfile(userId).then((data) => {
+  return async (dispatch) => {
+    const data = await profileApi.getProfile(userId)
       dispatch(setUserProfile(data));
-    })
   }
 }
 
 export const getUserStatus = (userId) => {
-  return (dispatch) => {
-    profileApi.getStatus(userId).then((response) => {
+  return async (dispatch) => {
+    const response = await profileApi.getStatus(userId)
       dispatch(setStatus(response.data));
-    })
   }
 }
 
 export const updateUserStatus = (status) => {
-  return (dispatch) => {
-    profileApi.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0)
-        dispatch(setStatus(status));
-    })
+  return async (dispatch) => {
+    const response = await profileApi.updateStatus(status)
+    if (response.data.resultCode === 0)
+      dispatch(setStatus(status));
   }
 }
 

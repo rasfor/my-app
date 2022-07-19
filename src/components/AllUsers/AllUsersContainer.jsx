@@ -15,15 +15,16 @@ import {
 
 class AllUsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+      const {currentPage, pageSize} = this.props;
+      this.props.getUsers(currentPage, pageSize);
   }
 
   onPageChange = (clickedPage) => {
-    this.props.getUsers(clickedPage, this.props.pageSize);
+      const {pageSize} = this.props;
+      this.props.getUsers(clickedPage, pageSize);
   }
 
   render() {
-      console.log("USERS render")
       return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -42,7 +43,6 @@ class AllUsersContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-    console.log("mapStateToProps USERS")
   return {
     users: getAllUsers(state),
     pageSize: getPageSize(state),

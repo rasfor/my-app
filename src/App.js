@@ -5,7 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import AllUsersContainer from './components/AllUsers/AllUsersContainer'
 import DialogContainer from './components/Dialogs/DialogContainer';
 import LoginForm from './components/Login/LoginContainer'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import { Route, Routes} from 'react-router-dom'
 import {Component} from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
@@ -24,7 +24,6 @@ class App extends Component {
       return (<Preloader />);
     }
     return (
-        <BrowserRouter>
           <div className="App">
             <HeaderContainer/>
             <Navbar/>
@@ -38,7 +37,6 @@ class App extends Component {
               </Routes>
             </div>
           </div>
-        </BrowserRouter>
     );
   }
 }
