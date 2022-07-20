@@ -7,10 +7,12 @@ import module from './AllUsers.module.css';
 const AllUsers = ({totalUsersCount, pageSize, currentPage, onPageChange, ...props}) => {
     return (
         <div className={module.users} >
-            <Paginator totalUsersCount={totalUsersCount} p
+            <Paginator totalItemsCount={totalUsersCount} p
                        pageSize={pageSize}
                        currentPage={currentPage}
-                       onPageChange={onPageChange} />
+                       onPageChange={onPageChange}
+                       portionSize={10}
+            />
             <div>
                 {props.users.map((user) => {
                     return <User key={user.id}

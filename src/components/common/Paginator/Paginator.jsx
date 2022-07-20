@@ -1,26 +1,31 @@
- import React from "react";
+ import React, {useState} from "react";
 import module from './Paginator.module.css';
 
 
-const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChange}) => {
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
+const Paginator = ({totalItemsCount, pageSize, currentPage, onPageChange, portionSize}) => {
+    let pagesCount = Math.ceil(totalItemsCount / pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    let curPage = currentPage;
-    let start = ((curPage - 5) < 0) ?  0  : curPage - 5 ;
-    let end = curPage + 5;
-    let slicedPages = pages.slice( start, end);
+
+    let portion = Math.ceil(pagesCount/portionSize);
+    let [currentPortion, setCurrentPortion] = useState(1);
+    let leftPageOfPortion = (currentPortion-1) * portionSize + 1;
+    let rightPageOfPortion = portionSize * currentPortion;
 
     return (
         <div>
-            {slicedPages.map((page) => {
-                return (
-                    <span className={currentPage === page ? module.selectedPage : module.page}
-                        onClick={() => { onPageChange(page) }}> {page}  </span>
-                )
-            })}
+            {currentPortion > 1 &&
+                <button onClick={()=>{setCurrentPortion(currentPortion-1)}}>Prev</button>}
+            {
+                pages.filter((page)=>page >=leftPageOfPortion && page <=rightPageOfPortion).map((page)=>{
+                       return <span key={page} className={currentPage === page ? module.selectedPage : module.page}
+                              onClick={() => { onPageChange(page) }}> {page}  </span>
+                    })
+            }
+            {currentPortion < portion &&
+                <button onClick={()=>setCurrentPortion(currentPortion+1)}>Next</button>}
         </div>
     );
 }
