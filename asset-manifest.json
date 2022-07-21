@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3633fe7b.css",
+    "main.js": "/static/js/main.0ad3ada0.js",
+    "static/css/950.012a3763.chunk.css": "/static/css/950.012a3763.chunk.css",
+    "static/js/950.87562d29.chunk.js": "/static/js/950.87562d29.chunk.js",
+    "static/css/652.c9290903.chunk.css": "/static/css/652.c9290903.chunk.css",
+    "static/js/652.2759aba8.chunk.js": "/static/js/652.2759aba8.chunk.js",
+    "static/js/787.28cb0dcd.chunk.js": "/static/js/787.28cb0dcd.chunk.js",
+    "static/media/kakashi-loader.gif": "/static/media/kakashi-loader.e128f096cc604d84ac71.gif",
+    "static/media/user.jpg": "/static/media/user.82fc3a15397286fa26da.jpg",
+    "index.html": "/index.html",
+    "main.3633fe7b.css.map": "/static/css/main.3633fe7b.css.map",
+    "main.0ad3ada0.js.map": "/static/js/main.0ad3ada0.js.map",
+    "950.012a3763.chunk.css.map": "/static/css/950.012a3763.chunk.css.map",
+    "950.87562d29.chunk.js.map": "/static/js/950.87562d29.chunk.js.map",
+    "652.c9290903.chunk.css.map": "/static/css/652.c9290903.chunk.css.map",
+    "652.2759aba8.chunk.js.map": "/static/js/652.2759aba8.chunk.js.map",
+    "787.28cb0dcd.chunk.js.map": "/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3633fe7b.css",
+    "static/js/main.0ad3ada0.js"
+  ]
+}
