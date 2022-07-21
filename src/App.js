@@ -1,9 +1,8 @@
+import React,{Suspense} from "react";
 import './App.css';
 import HeaderContainer from './components/Header/HeaderContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
-import AllUsersContainer from './components/AllUsers/AllUsersContainer'
-import DialogContainer from './components/Dialogs/DialogContainer';
 import LoginForm from './components/Login/LoginContainer'
 import { Route, Routes} from 'react-router-dom'
 import {Component} from "react";
@@ -11,10 +10,12 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {initialize} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/redux-store";
-import React from "react";
-import {BrowserRouter} from "react-router-dom";
 import {Provider} from 'react-redux'
+import {BrowserRouter} from "react-router-dom";
+import store from "./redux/redux-store";
+
+const AllUsersContainer = React.lazy(()=>import('./components/AllUsers/AllUsersContainer'));
+const DialogContainer = React.lazy(()=>import('./components/Dialogs/DialogContainer')) ;
 
 class App extends Component {
 
@@ -31,13 +32,15 @@ class App extends Component {
             <HeaderContainer/>
             <Navbar/>
             <div className="App-content">
-              <Routes>
-                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                <Route path='/profile/' element={<ProfileContainer/>}/>
-                <Route path='/login' element={<LoginForm/>}/>
-                <Route path='/dialogs/*' element={<DialogContainer store={this.props.store}/>}/>
-                <Route path='/allusers' element={<AllUsersContainer/>}/>
-              </Routes>
+                <Suspense fallback={<Preloader/>}>
+                  <Routes>
+                    <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                    <Route path='/profile/' element={<ProfileContainer/>}/>
+                    <Route path='/login' element={<LoginForm/>}/>
+                    <Route path='/dialogs/*' element={<DialogContainer store={this.props.store}/>}/>
+                    <Route path='/allusers' element={<AllUsersContainer/>}/>
+                  </Routes>
+                </Suspense>
             </div>
           </div>
     );
