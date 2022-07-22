@@ -4,6 +4,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS';
+const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 
 
 let initialState = {
@@ -42,6 +43,11 @@ const profileReducer = (state = initialState, action) => {
     case UPDATE_PHOTO_SUCCESS: {
       return {
         ...state, profile: {...state.profile, photos: action.photos}
+      }
+    }
+    case SAVE_PROFILE_SUCCESS: {
+      return {
+        ...state, profile: action.data
       }
     }
     default:
@@ -83,6 +89,13 @@ export const deletePost = (postId) => {
   }
 }
 
+export const saveProfileSuccess = (data) => {
+  return {
+    type: SAVE_PROFILE_SUCCESS,
+    data
+  }
+}
+
 export const getUserProfile = (userId) => {
   return async (dispatch) => {
     const data = await profileApi.getProfile(userId)
@@ -111,6 +124,14 @@ export const updatePhoto = (photo) => {
 
     if (response.data.resultCode === 0)
       dispatch(updatePhotoSuccess(response.data.data.photos));
+  }
+}
+
+export const saveProfile = (payload) => {
+  return async (dispatch) => {
+    const response = await profileApi.updateProfileData(payload);
+    if (response.data.resultCode === 0)
+      dispatch(saveProfileSuccess(payload));
   }
 }
 

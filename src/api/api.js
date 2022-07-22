@@ -41,6 +41,9 @@ export const profileApi = {
         const formData = new FormData();
         formData.append("image",photo);
         return instance.put(`profile/photo`,formData);
+    },
+    updateProfileData(data) {
+        return instance.put('/profile',data)
     }
 };
 

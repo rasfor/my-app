@@ -1,7 +1,7 @@
 import Profile from './Profile';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUserProfile, getUserStatus, updateUserStatus, updatePhoto } from '../../redux/profile-reducer';
+import { getUserProfile, getUserStatus, updateUserStatus, updatePhoto, saveProfile } from '../../redux/profile-reducer';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { WithAuthRedirect } from '../hoc/WithAuthRedirect';
 import { compose } from 'redux';
@@ -65,7 +65,13 @@ function withRouter(Component) {
 }
 
 export default compose(
-  connect(matchStateToProps, { getUserProfile, getUserStatus, updateUserStatus, updatePhoto }),
+  connect(matchStateToProps,
+      { getUserProfile,
+        getUserStatus,
+        updateUserStatus,
+        updatePhoto,
+        saveProfile
+      }),
   WithAuthRedirect,
   withRouter
 )(ProfileContainer);
