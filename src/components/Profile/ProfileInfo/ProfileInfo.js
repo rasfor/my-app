@@ -14,11 +14,11 @@ const ProfileInfo = (props) => {
 
     let onSubmit = (formData) => {
         props.saveProfile(formData);
+        changeEditMode(false);
     }
 
     const profile = {...props.profileData};
     delete profile.photos;
-    delete profile.contacts;
     delete profile.userId;
 
   return (
