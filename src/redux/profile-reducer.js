@@ -3,6 +3,7 @@ const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS';
 
 
 let initialState = {
@@ -38,11 +39,24 @@ const profileReducer = (state = initialState, action) => {
         status: action.status
       }
     }
+    case UPDATE_PHOTO_SUCCESS: {
+      return {
+        ...state, profile: {...state.profile, photos: action.photos}
+      }
+    }
     default:
       return state;
   }
 
 }
+
+export let updatePhotoSuccess = (photos) => {
+  return {
+    type: UPDATE_PHOTO_SUCCESS,
+    photos
+  }
+}
+
 export let createAddPostObj = (newPostText) => ({
   type: ADD_POST,
   newPostText:newPostText
@@ -88,6 +102,15 @@ export const updateUserStatus = (status) => {
     const response = await profileApi.updateStatus(status)
     if (response.data.resultCode === 0)
       dispatch(setStatus(status));
+  }
+}
+
+export const updatePhoto = (photo) => {
+  return async (dispatch) => {
+    const response = await profileApi.updatePhoto(photo);
+
+    if (response.data.resultCode === 0)
+      dispatch(updatePhotoSuccess(response.data.data.photos));
   }
 }
 
