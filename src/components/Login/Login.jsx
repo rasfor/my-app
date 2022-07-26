@@ -13,12 +13,12 @@ const Login = (props) => {
   return (
     <div>
       <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={onSubmit}/>
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>
   )
 }
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
   return (
       <form onSubmit={handleSubmit}>
           {createField("email","email", Input, [required])}
@@ -27,6 +27,9 @@ const LoginForm = ({handleSubmit, error}) => {
           { error && <div className={module.formError}>
               {error}
           </div>}
+          {captchaUrl && <img src={captchaUrl} />}
+          {captchaUrl && createField("Symbols from image","captcha", Input, [required],{})
+          }
         <div>
           <button>login</button>
         </div>

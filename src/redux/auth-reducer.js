@@ -1,8 +1,8 @@
-import { authApi } from '../api/api';
+import {authApi, securityApi} from '../api/api';
 import {stopSubmit} from "redux-form";
 
 const SET_AUTH_USER = 'SET_AUTH_USER';
-const GET_CAPTCHA_URL = 'SET_AUTH_USER';
+const GET_CAPTCHA_URL = 'GET_CAPTCHA_URL';
 
 let ininitializeState = {
     userId: null,
@@ -23,7 +23,7 @@ const authUserReducer = (state = ininitializeState, action) => {
         case GET_CAPTCHA_URL: {
             return {
                 ...state,
-                ...action.captchaUrl
+                ...action.payload
             }
         }
         default:
@@ -45,10 +45,20 @@ export const setAuthUser = (userId, email, login,isAuthorized) => {
     }
 }
 
-export const getCaptchaUrl = (captchaUrl) => {
+export const getCaptchaUrlSuccess = (captchaUrl) => {
     return {
         type: GET_CAPTCHA_URL,
-        captchaUrl
+        payload: {captchaUrl}
+    }
+}
+
+export const getCaptchaUrl = () => {
+    return async (dispatch) => {
+        const response = await securityApi.getCaptcha();
+        if (response.data.url) {
+            dispatch(getCaptchaUrlSuccess(response.data.url))
+        }
+
     }
 }
 
@@ -69,6 +79,9 @@ export const login = (payload) =>{
         if (response.data.resultCode === 0) {
             dispatch(getCurrentUser());
         }
+        if (response.data.resultCode === 10) {
+            dispatch(getCaptchaUrl());
+        }
         else {
             let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
             dispatch(stopSubmit("login",{_error:message}));
@@ -84,5 +97,6 @@ export const logout = () =>{
         }
     }
 }
+
 
 export default authUserReducer;

@@ -11,7 +11,8 @@ const LoginContainer = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthorized: state.auth.isAuthorized
+        isAuthorized: state.auth.isAuthorized,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 

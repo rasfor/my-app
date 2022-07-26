@@ -56,7 +56,10 @@ export const authApi = {
     },
     getCurrentUser() {
         return instance.get(`auth/me`);
-    },
+    }
+};
+
+export const securityApi = {
     getCaptcha() {
         return instance.get(`/security/get-captcha-url`);
     }
