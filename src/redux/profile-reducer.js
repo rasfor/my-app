@@ -1,4 +1,5 @@
 import { profileApi } from '../api/api';
+import {stopSubmit} from "redux-form";
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
@@ -114,12 +115,30 @@ export const updatePhoto = (photo) => {
   }
 }
 
+// const hadleResponseError = (strError) => {
+//   let contactErr = ""
+//   if (strError.indexOf("Contacts") !== -1) {
+//     contactErr = strError.split('->')[1].split(")")[0].toLowerCase()
+//     return {
+//       "contacts": {
+//         contactErr: strError
+//       }
+//     }
+//   }
+//   else return {strError}
+// }
+
 export const saveProfile = (payload) => {
   return async (dispatch, getState) => {
     const userId = getState().auth.userId;
     const response = await profileApi.updateProfileData(payload);
     if (response.data.resultCode === 0)
       dispatch(getUserProfile(userId));
+    else {
+      // let err = hadleResponseError(response.data.messages[0])
+      dispatch(stopSubmit("profileEdit",{_error:response.data.messages[0]}))
+      return Promise.reject(response.data.messages[0]);
+    }
   }
 }
 

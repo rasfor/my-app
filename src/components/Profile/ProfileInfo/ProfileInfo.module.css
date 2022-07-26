@@ -10,3 +10,8 @@
 .contacts {
   padding-left: 10px;
 }
+
+.formError {
+  border: solid red 5px;
+  color: red;
+}
