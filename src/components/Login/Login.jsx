@@ -4,6 +4,11 @@ import { Navigate } from "react-router-dom";
 import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import module from './Login.module.css'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
 
 const Login = (props) => {
     let onSubmit = (formData) => {
@@ -12,8 +17,21 @@ const Login = (props) => {
     if (props.isAuthorized) return ( <Navigate to="/profile" />)
   return (
     <div>
-      <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+        <Box
+            sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}>
+            <Avatar>
+                <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                LOGIN
+            </Typography>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+        </Box>
     </div>
   )
 }
@@ -21,6 +39,7 @@ const Login = (props) => {
 const LoginForm = ({handleSubmit, error, captchaUrl}) => {
   return (
       <form onSubmit={handleSubmit}>
+
           {createField("email","email", Input, [required])}
           {createField("password","password", Input, [required], {type:"password"})}
           {createField(null,"rememberMe", Input, [], {type:"checkbox"}, "Remember me")}
@@ -31,7 +50,10 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
           {captchaUrl && createField("Symbols from image","captcha", Input, [required],{})
           }
         <div>
-          <button>login</button>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained">Sign In</Button>
         </div>
       </form>
   )
