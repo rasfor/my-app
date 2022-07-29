@@ -1,30 +1,26 @@
-import React from "react";
+ import React from "react";
 import User from './User/User';
 import module from './AllUsers.module.css';
+ import Paginator from "../common/Paginator/Paginator";
 
 
-const AllUsers = (props) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+const AllUsers = ({totalUsersCount, pageSize, currentPage, onPageChange, ...props}) => {
     return (
         <div className={module.users} >
-            <div>
-                {pages.map((page) => {
-                    return (
-                        <span className={props.currentPage === page ? module.selectedPage : module.page}
-                            onClick={() => { props.onPageChange(page) }}>{page}</span>
-                    )
-                })}
-            </div>
+            <Paginator totalItemsCount={totalUsersCount} p
+                       pageSize={pageSize}
+                       currentPage={currentPage}
+                       onPageChange={onPageChange}
+                       portionSize={10}
+            />
             <div>
                 {props.users.map((user) => {
                     return <User key={user.id}
                         userData={user}
                         follow={props.follow}
-                        unfollow={props.unfollow} />
+                        unfollow={props.unfollow}
+                        followingProcess={props.followingProcess}
+                    />
                 })}
             </div>
         </div>

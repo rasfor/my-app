@@ -1,28 +1,70 @@
+import React,{Suspense} from "react";
 import './App.css';
-import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
+import HeaderContainer from './components/Header/HeaderContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Navbar from './components/Navbar/Navbar';
-import AllUsersContainer from './components/AllUsers/AllUsersContainer'
-import DialogContainer from './components/Dialogs/DialogContainer';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import LoginForm from './components/Login/LoginContainer'
+import { Route, Routes} from 'react-router-dom'
+import {Component} from "react";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {initialize} from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader";
+import {Provider} from 'react-redux'
+import {BrowserRouter} from "react-router-dom";
+import store from "./redux/redux-store";
 
+const AllUsersContainer = React.lazy(()=>import('./components/AllUsers/AllUsersContainer'));
+const DialogContainer = React.lazy(()=>import('./components/Dialogs/DialogContainer')) ;
 
-function App(props) {
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
-        <Navbar />
-        <div className="App-content" >
-          <Routes >
-            <Route path='/profile' element={<Profile store={props.store} />} />
-            <Route path='/dialogs/*' element={<DialogContainer store={props.store} />} />
-            <Route path='/allusers' element={<AllUsersContainer />} />
-          </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
-  );
+class App extends Component {
+
+  componentDidMount() {
+    this.props.initialize();
+  }
+
+  render() {
+    if (!this.props.initialized) {
+      return (<Preloader />);
+    }
+    return (
+          <div className="App">
+            <HeaderContainer/>
+            <Navbar/>
+            <div className="App-content">
+                <Suspense fallback={<Preloader/>}>
+                  <Routes>
+                    <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                    <Route path='/profile/' element={<ProfileContainer/>}/>
+                    <Route path='/login' element={<LoginForm/>}/>
+                    <Route path='/dialogs/*' element={<DialogContainer store={this.props.store}/>}/>
+                    <Route path='/allusers' element={<AllUsersContainer/>}/>
+                  </Routes>
+                </Suspense>
+            </div>
+          </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    initialized: state.app.initialized
+  }
+}
+
+const AppContainer = compose(
+    connect(mapStateToProps, { initialize})
+)(App)
+
+const SamuraiJSApp = () => {
+    return (
+        <BrowserRouter >
+            <Provider store={store} >
+                <AppContainer />
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default SamuraiJSApp;

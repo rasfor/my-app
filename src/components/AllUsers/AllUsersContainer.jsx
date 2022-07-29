@@ -1,35 +1,31 @@
 import { connect } from 'react-redux';
-import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setUsersTotalCountAC, setIsFetchingAC } from '../../redux/allUsers-reducer';
-import * as axios from 'axios';
+import { follow, unfollow, setUsers, setCurrentPage, getUsers } from '../../redux/allUsers-reducer';
 import AllUsers from './AllUsers';
 import React from 'react';
-import Preloader from '../common/Preloader/Preloader'
+import Preloader from '../common/Preloader/Preloader';
+import { compose } from 'redux';
+import { WithAuthRedirect } from '../hoc/WithAuthRedirect'
+import {
+    getAllUsers,
+    getBoolFetching,
+    getCurrentPage, getFollowingProcess,
+    getPageSize,
+    getTotalUsersCount
+} from "../../redux/selectors/allUser-selectors";
 
 class AllUsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setIsFetching(true);
-    if (this.props.users.length === 0) {
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.setUsersTotalCount(response.data.totalCount);
-        this.props.setIsFetching(false);
-
-      })
-    }
+      const {currentPage, pageSize} = this.props;
+      this.props.getUsers(currentPage, pageSize);
   }
 
   onPageChange = (clickedPage) => {
-    this.props.setIsFetching(true);
-    this.props.setCurrentPage(clickedPage);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${clickedPage}&count=${this.props.pageSize}`).then((response) => {
-      this.props.setUsers(response.data.items)
-      this.props.setIsFetching(false);
-
-    })
+      const {pageSize} = this.props;
+      this.props.getUsers(clickedPage, pageSize);
   }
 
   render() {
-    return (
+      return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
         <AllUsers users={this.props.users}
@@ -39,6 +35,7 @@ class AllUsersContainer extends React.Component {
           onPageChange={this.onPageChange}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
+          followingProcess={this.props.followingProcess}
         />
       </>
     )
@@ -47,36 +44,22 @@ class AllUsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    users: getAllUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getBoolFetching(state),
+    followingProcess: getFollowingProcess(state)
   }
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users))
-    },
-    setCurrentPage: (clickedPage) => {
-      dispatch(setCurrentPageAC(clickedPage))
-    },
-    setUsersTotalCount: (totalCount) => {
-      dispatch(setUsersTotalCountAC(totalCount))
-    },
-    setIsFetching: (isFetching) => {
-      dispatch(setIsFetchingAC(isFetching))
-    }
-  }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllUsersContainer);;
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    getUsers
+  }),
+  WithAuthRedirect
+)(AllUsersContainer);;
